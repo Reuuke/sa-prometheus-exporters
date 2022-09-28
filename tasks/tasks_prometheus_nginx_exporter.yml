@@ -22,8 +22,8 @@
 
   - name: Prometheus nginx Exporter | Download distribution
     get_url:
-      url: "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v{{ prometheus_nginx_exporter_version }}/nginx-prometheus-exporter-{{ prometheus_nginx_exporter_version }}-linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}.tar.gz"
-      dest: "/tmp/nginx-prometheus-exporter-{{ prometheus_nginx_exporter_version }}-linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}.tar.gz"
+      url: "https://github.com/nginxinc/nginx-prometheus-exporter/releases/download/v{{ prometheus_nginx_exporter_version }}/nginx-prometheus-exporter_{{ prometheus_nginx_exporter_version }}_linux_{{ [ansible_architecture] | map('extract', bin_architecture) | first }}.tar.gz"
+      dest: "/tmp/nginx-prometheus-exporter-{{ prometheus_nginx_exporter_version }}_linux_{{ [ansible_architecture] | map('extract', bin_architecture) | first }}.tar.gz"
     become: yes
     become_user: "{{ nginx_exporter_user }}"
     when: not nginx_exporter_version_exists.stat.exists
@@ -44,7 +44,7 @@
 
   - name: Prometheus nginx Exporter | unpack distribution
     unarchive:
-      src: "/tmp/nginx-prometheus-exporter-{{ prometheus_nginx_exporter_version }}-linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}.tar.gz"
+      src: "/tmp/nginx-prometheus-exporter-{{ prometheus_nginx_exporter_version }}_linux_{{ [ansible_architecture] | map('extract', bin_architecture) | first }}.tar.gz"
       dest: "{{ prometheus_exporters_dir }}/nginx_exporter-{{ prometheus_nginx_exporter_version }}.linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}"
       remote_src: yes
     become: yes

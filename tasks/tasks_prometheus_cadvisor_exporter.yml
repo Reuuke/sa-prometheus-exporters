@@ -28,7 +28,7 @@
 
   - name: CAdvisor | Download distribution
     get_url:
-      url: "https://github.com/google/cadvisor/releases/download/v{{ prometheus_cadvisor_exporter_version }}/cadvisor-{{ prometheus_cadvisor_exporter_version }}-linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}"
+      url: "https://github.com/google/cadvisor/releases/download/v{{ prometheus_cadvisor_exporter_version }}/cadvisor-v{{ prometheus_cadvisor_exporter_version }}-linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}"
       dest: "{{ prometheus_exporters_dir }}/{{ cadvisor_exporter_sub_dir }}/cadvisor_exporter"
       mode: "u=rwx,g=rx,o=rx"
     become: yes
