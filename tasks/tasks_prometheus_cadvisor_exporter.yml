@@ -1,6 +1,7 @@
 ---
 # https://github.com/google/cadvisor/releases
-# https://github.com/google/cadvisor/releases/download/v0.27.4/cadvisor
+# https://github.com/google/cadvisor/releases/download/v0.45.0/cadvisor-v0.45.0-linux-amd64
+
   - name: Set exporter facts
     set_fact:
       cadvisor_exporter_sub_dir: "{{ exporter_config.exporter_dir | default('cadvisor_exporter') }}"
@@ -27,7 +28,7 @@
 
   - name: CAdvisor | Download distribution
     get_url:
-      url: "https://github.com/google/cadvisor/releases/download/v{{ prometheus_cadvisor_exporter_version }}/cadvisor"
+      url: "https://github.com/google/cadvisor/releases/download/v{{ prometheus_cadvisor_exporter_version }}/cadvisor-{{ prometheus_cadvisor_exporter_version }}-linux-{{ [ansible_architecture] | map('extract', bin_architecture) | first }}"
       dest: "{{ prometheus_exporters_dir }}/{{ cadvisor_exporter_sub_dir }}/cadvisor_exporter"
       mode: "u=rwx,g=rx,o=rx"
     become: yes

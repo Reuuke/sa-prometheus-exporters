@@ -1,5 +1,7 @@
 ---
-# https://github.com/ivx/yet-another-cloudwatch-exporter
+# https://github.com/nerdswords/yet-another-cloudwatch-exporter
+# https://github.com/nerdswords/yet-another-cloudwatch-exporter/releases/download/v0.40.0-alpha/yet-another-cloudwatch-exporter_0.40.0-alpha_Linux_x86_64.tar.gz
+
   - name: Set exporter facts
     set_fact:
       cloudwatch_exporter_sub_dir: "{{ exporter_config.exporter_dir | default('cloudwatch_exporter') }}"
@@ -24,9 +26,8 @@
 
   - name: Prometheus cloudwatch Exporter | Download distribution
     get_url:
-          # https://github.com/ivx/yet-another-cloudwatch-exporter/releases/download/v0.13.3/yet-another-cloudwatch-exporter_0.13.3_Linux_x86_64.tar.gz
-      url: "https://github.com/ivx/yet-another-cloudwatch-exporter/releases/download/v{{ prometheus_cloudwatch_exporter_version | default('0.13.3') }}/yet-another-cloudwatch-exporter_{{ prometheus_cloudwatch_exporter_version | default('0.13.3') }}_Linux_x86_64.tar.gz"
-      dest: "/tmp/yet-another-cloudwatch-exporter_{{ prometheus_cloudwatch_exporter_version | default('0.13.3') }}_Linux_x86_64.tar.gz"
+      url: "https://github.com/nerdswords/yet-another-cloudwatch-exporter/releases/download/v{{ prometheus_cloudwatch_exporter_version}}/yet-another-cloudwatch-exporter_{{ prometheus_cloudwatch_exporter_version }}_Linux_{{ [ansible_architecture] | map('extract', cloudwatch_exporter_architecture) | first }}.tar.gz"
+      dest: "/tmp/yyet-another-cloudwatch-exporter_{{ prometheus_cloudwatch_exporter_version }}_Linux_{{ [ansible_architecture] | map('extract', cloudwatch_exporter_architecture) | first }}.tar.gz"
       mode: "u=rwx,g=rx,o=rx"
     become: yes
     become_user: "{{ cloudwatch_exporter_user }}"
@@ -36,7 +37,7 @@
 
   - name: Prometheus cloudwatch Exporter | unpack distribution
     unarchive:
-      src: "/tmp/yet-another-cloudwatch-exporter_{{ prometheus_cloudwatch_exporter_version | default('0.13.3') }}_Linux_x86_64.tar.gz"
+      src: "/tmp/yet-another-cloudwatch-exporter_{{ prometheus_cloudwatch_exporter_version }}_Linux_{{ [ansible_architecture] | map('extract', cloudwatch_exporter_architecture) | first }}.tar.gz"
       dest: "{{ prometheus_exporters_dir }}"
       remote_src: yes
     become: yes
