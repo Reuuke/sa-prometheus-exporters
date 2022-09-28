@@ -6,6 +6,11 @@ role_dir: "{{role_path}}"
 option_install_go: false
 go_version: 1.6
 
+bin_architecture: {
+  "aarch64": "arm64",
+  "x86_64": "amd64"
+}
+
 prometheus_exporters:
   - {
       name: apache
